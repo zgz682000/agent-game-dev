@@ -1,0 +1,26 @@
+[project]
+name = "agent-game-dev-core"
+version = "0.1.0"
+description = "Your one person multi-agent game dev studio framework"
+requires-python = ">=3.13"
+dependencies = [
+    "agent-framework>=1.0.0b251211",
+]
+
+[tool.pyright]
+extends = "../../pyproject.toml"
+
+[tool.mypy]
+plugins = ['pydantic.mypy']
+strict = true
+python_version = "3.13"
+ignore_missing_imports = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+show_error_codes = true
+warn_unused_ignores = false
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+
