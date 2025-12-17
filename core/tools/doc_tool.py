@@ -54,6 +54,11 @@ class DocWriteTool(Tool, ABC):
 
 
 class DocToolFactory(ABC):
+    
+    @property
+    @abstractmethod
+    def doc_format_name(self) -> str:
+        pass
 
     @abstractmethod
     def create_doc_read_tool(self) -> DocReadTool:

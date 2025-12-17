@@ -6,7 +6,7 @@ from core.role import Role
 from core.team_share_state import TeamShareState
 from core.tool import Tool
 from core.tools.doc_tool import DocReadTool, DocWriteTool
-
+from core.prompts.game_designer_prompts import GAME_DESIGNER_DESCRIPTION, GAME_DESIGNER_INSTRUCTIONS
 
 class GameDesignerExecutor(Executor):
     def __init__(self, * , designer: 'GameDesigner'):
@@ -37,8 +37,8 @@ class GameDesigner(Role):
         super().__init__(
             name=name or "Game Designer",
             team_share_state=team_share_state,
-            description=description or "You are a game designer. You are responsible for designing the game.",
-            instructions=instructions or "You are a game designer. You are responsible for designing the game.",
+            description=description or GAME_DESIGNER_DESCRIPTION.format(doc_format_name=team_share_state.doc_tool_factory.doc_format_name),
+            instructions=instructions or GAME_DESIGNER_INSTRUCTIONS.format(doc_format_name=team_share_state.doc_tool_factory.doc_format_name),
             leader=leader,
             downstream_roles=downstream_roles,
             tools=tools,
