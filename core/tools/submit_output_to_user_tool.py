@@ -18,14 +18,14 @@ class SubmitOutputToUserResponse(BaseModel):
 class SubmitOutputToUserTool(Tool):
     def __init__(self):
         super().__init__(name="submit_output_to_user", approval_mode="never_require")
-        self.description = "Submit your output to the User, and wait for User's response"
+        self._description = "Submit your output to the User, and wait for User's response"
         self.__workflow_context: WorkflowContext[AgentExecutorResponse, AgentRunResponse] | None = None
         self.__future: Future[str] | None = None
     
     def set_workflow_context(self, workflow_context: WorkflowContext[AgentExecutorResponse, AgentRunResponse]) -> None:
         self.__workflow_context = workflow_context
     
-    async def submit_output_to_user(self, output: str) -> str:
+    async def _submit_output_to_user(self, output: str) -> str:
         if not self.__workflow_context:
             raise ValueError("Workflow context is not set")
         self.__future = Future()
@@ -40,9 +40,9 @@ class SubmitOutputToUserTool(Tool):
     @override
     def get_tool(self) -> ToolProtocol | Callable[..., Any]:
         return AIFunction(
-            name=self.name,
-            func=self.submit_output_to_user,
+            name=self._name,
+            func=self._submit_output_to_user,
             input_model=SubmitOutputToUserInput,
-            description=self.description,
-            approval_mode=self.approval_mode,
+            description=self._description,
+            approval_mode=self._approval_mode,
         )

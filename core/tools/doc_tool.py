@@ -21,17 +21,17 @@ class DocReadTool(Tool, ABC):
         super().__init__(name=name, description=description, approval_mode=approval_mode)
     
     @abstractmethod
-    async def read_doc(self, doc_name: str)->str:
+    async def _read_doc(self, doc_name: str)->str:
         pass
 
     @override
     def get_tool(self) -> ToolProtocol | Callable[..., Any]:
         return AIFunction(
-            name=self.name,
-            func=self.read_doc,
+            name=self._name,
+            func=self._read_doc,
             input_model=DocReadInput,
-            approval_mode=self.approval_mode,
-            description=self.description or "Read a document",
+            approval_mode=self._approval_mode,
+            description=self._description or "Read a document",
         )
 
 class DocWriteTool(Tool, ABC):
@@ -39,17 +39,17 @@ class DocWriteTool(Tool, ABC):
         super().__init__(name=name, description=description, approval_mode=approval_mode)
 
     @abstractmethod
-    async def write_doc(self, doc_name: str, doc_content: str) -> Any:
+    async def _write_doc(self, doc_name: str, doc_content: str) -> Any:
         pass
     
     @override
     def get_tool(self) -> ToolProtocol | Callable[..., Any]:
         return AIFunction(
-            name=self.name,
-            func=self.write_doc,
+            name=self._name,
+            func=self._write_doc,
             input_model=DocWriteInput,
-            description=self.description or "Write a document",
-            approval_mode=self.approval_mode,
+            description=self._description or "Write a document",
+            approval_mode=self._approval_mode,
         )
 
 
