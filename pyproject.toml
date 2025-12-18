@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "agent-game-dev-core>=0.1.0",
+    "agent-game-dev-game-dev>=0.1.0",
 ]
 
 [tool.uv]
@@ -19,9 +20,9 @@ index-strategy = "unsafe-best-match"
 [tool.uv.sources]
 agent-game-dev-core = { path = "core" }
 agent-game-dev-base-sample = { path = "samples/base-sample" }
-
+agent-game-dev-game-dev = { path = "game_dev" }
 [tool.pyright]
-include = ["core", "samples/base-sample"]
+include = ["core", "samples/base-sample", "game_dev"]
 exclude = ["**/tests/**", "docs", "**/.venv/**"]
 typeCheckingMode = "strict"
 reportUnnecessaryIsInstance = false

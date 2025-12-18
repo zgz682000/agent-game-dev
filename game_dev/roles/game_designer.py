@@ -6,8 +6,8 @@ from core.role import Role
 from core.team_share_state import TeamShareState
 from core.tool import Tool
 from core.tools.doc_tool import DocReadTool, DocWriteTool
-from core.prompts.game_designer_prompts import GAME_DESIGNER_SKILL_DESCRIPTION, GAME_DESIGNER_DUTY_DESCRIPTION, GAME_DESIGNER_OTHER_INSTRUCTIONS
-
+from game_dev.prompts.game_designer_prompts import GAME_DESIGNER_SKILL_DESCRIPTION, GAME_DESIGNER_DUTY_DESCRIPTION, GAME_DESIGNER_OTHER_INSTRUCTIONS
+from core.tools.web_search_tool import WebSearchTool
 
 class GameDesigner(Role):
     def __init__(self, * , 
@@ -25,6 +25,8 @@ class GameDesigner(Role):
             tools.append(team_share_state.doc_tool_factory.create_doc_write_tool())
         if not any(tool for tool in tools if isinstance(tool, DocReadTool)):
             tools.append(team_share_state.doc_tool_factory.create_doc_read_tool())
+        if not any(tool for tool in tools if isinstance(tool, WebSearchTool)):
+            tools.append(team_share_state.web_search_tool_factory.create_web_search_tool())
             
         super().__init__(
             name=name or "Game Designer",

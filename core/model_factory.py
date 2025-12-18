@@ -17,6 +17,14 @@ class ModelFactory(ABC):
     def create_flash_chat_client(self, **kwargs: Any) -> BaseChatClient:
         raise NotImplementedError("Subclasses must implement this method")
 
+    @abstractmethod
+    def create_text_to_image_model_client(self, **kwargs: Any) -> Any:
+        raise NotImplementedError("Subclasses must implement this method")
+    
+    @abstractmethod
+    def create_vision_chat_client(self, **kwargs: Any) -> BaseChatClient:
+        raise NotImplementedError("Subclasses must implement this method")
+
 class OpenAIModelFactory(ModelFactory):
 
     def __init__(self, *,
@@ -57,3 +65,11 @@ class OpenAIModelFactory(ModelFactory):
             model_id=self.flash_model_id,
             **kwargs
         )
+    
+    @override
+    def create_text_to_image_model_client(self, **kwargs: Any) -> Any:
+        raise NotImplementedError("create_text_to_image_model_client is not supported for OpenAI")
+    
+    @override
+    def create_vision_chat_client(self, **kwargs: Any) -> BaseChatClient:
+        raise NotImplementedError("create_vision_chat_client is not supported for OpenAI")
