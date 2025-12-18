@@ -17,8 +17,12 @@ class MarkdownWriteTool(DocWriteTool, ABC):
         self.folder_path = folder_path
     @override
     async def write_doc(self, doc_name: str, doc_content: str):
-        with open(os.path.join(self.folder_path, doc_name + ".md"), "w") as f:
+        path = os.path.join(self.folder_path, doc_name + ".md")
+        if not os.path.exists(path):
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w") as f:
             f.write(doc_content)
+        return path
 
     
 class MarkdownReadTool(DocReadTool, ABC):

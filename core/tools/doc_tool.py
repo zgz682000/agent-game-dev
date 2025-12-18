@@ -39,7 +39,7 @@ class DocWriteTool(Tool, ABC):
         super().__init__(name=name, description=description, approval_mode=approval_mode)
 
     @abstractmethod
-    async def write_doc(self, doc_name: str, doc_content: str):
+    async def write_doc(self, doc_name: str, doc_content: str) -> Any:
         pass
     
     @override
